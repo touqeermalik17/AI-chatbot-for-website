@@ -1,0 +1,972 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8">
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+
+
+<meta charset="utf-8" />
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"> </script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/qna"> </script>
+
+
+
+  
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/qna"> </script>
+  <!-- Favicon -->
+  <link rel="shortcut icon" type="image/x-icon" href="images/favicon.png" />
+  
+  <!-- Themefisher Icon font -->
+  <link rel="stylesheet" href="plugins/themefisher-font/style.css">
+  <!-- bootstrap.min css -->
+  <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css">
+  
+  <!-- Animate css -->
+  <link rel="stylesheet" href="plugins/animate/animate.css">
+  <!-- Slick Carousel -->
+  <link rel="stylesheet" href="plugins/slick/slick.css">
+  <link rel="stylesheet" href="plugins/slick/slick-theme.css">
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+
+
+
+  <style type="text/css">
+  .links-unordered {
+  display: inline-block;
+  position: relative;
+}
+
+.links-unordered {
+  margin-top: 18px;
+  min-height: 30px;
+}
+
+.links-unordered .toggle-button {
+  text-decoration: none;
+  padding: 7px 8px 7px 8px;
+  transition: 0.2s;
+  border: 1px solid black;
+  background-color: #F0F8FF;
+}
+
+.links-unordered .toggle-button:hover,
+.links-unordered .toggle-button:active,
+.links-unordered .toggle-button:focus,
+.links-unordered .toggle-button:visited {
+  text-decoration: none;
+  color: black;
+}
+
+.links-unordered .toggle-button:hover {
+  border-width: 2px;
+}
+
+.links-unordered ul {
+  position: absolute;
+  top: 10px;
+  margin-top: 25px;
+  padding-inline-start: 1px;
+  background-color: #F0F8FF;
+  
+}
+
+.links-unordered ul li {
+  line-height: 25px;
+  padding-left: 15px;
+  list-style-type:none;
+}
+
+.links-unordered a {
+  text-decoration: none;
+  color: black;
+}
+</style>
+
+
+
+
+
+
+<style type="text/css">
+	
+.open-button {
+ 
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: fixed;
+  bottom: 23px;
+  right: 28px;
+  width: 280px;
+}
+
+/* The popup chat - hidden by default */
+.chat-popup {
+	background: white;
+  display: none;
+  position: fixed;
+  bottom: 0;
+  width: 350px;
+  right: 15px;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+}
+
+/* Add styles to the form container */
+.form-container {
+  max-width: 350px;
+  padding: 10px;
+  background-color: white;
+}
+
+/* Full-width textarea */
+.form-container textarea {
+  width: 100%;
+  padding: 5px;
+  border: none;
+  background: #f1f1f1;
+  resize: none;
+  height: 40px;
+}
+
+/* When the textarea gets focus, do something */
+.form-container textarea:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the submit/send button */
+.form-container .btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 8px 10px;
+  border: none;
+  cursor: pointer;
+  width: 50%;
+  margin-bottom:5px;
+  opacity: 0.7;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+  background-color: red;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+}
+
+#conversation{
+  display: block;
+  overflow:scroll;
+  height:250px;
+}
+
+.container1 {
+  border: 2px solid #dedede;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  margin: 10px 0;
+}
+
+.container1::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.right-chat {
+  background-color: #00BFFF;
+  color: white;
+  margin-left: 10%;
+  padding: 5px;
+}
+
+.left-chat {
+  background-color: #F0F8FF;
+  margin-right: 10%;
+  padding: 5px;
+  width: 281px;
+}
+
+#passageInput {
+  resize: both;
+  overflow: auto;
+}
+
+
+
+
+
+</style>
+</head>
+
+<body id="body">
+
+<!-- Start Top Header Bar -->
+<section class="top-header">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-4 col-xs-12 col-sm-4">
+				<div class="contact-number">
+					<img src="images/brain1.png" style="height: 70px;">
+					
+				</div>
+			</div>
+			<div class="col-md-4 col-xs-12 col-sm-4">
+				<!-- Site Logo -->
+				<div class="logo text-center">
+					<a href="index.html">
+						
+										<h3>AI PRICE NEGOTIATOR</h3>
+							
+					</a>
+				</div>
+			</div>
+			<div class="col-md-4 col-xs-12 col-sm-4">
+				<!-- Cart -->
+				<ul class="top-menu text-right list-inline">
+					<li class="dropdown cart-nav dropdown-slide">
+						<li><a href="login.html">Sign-In</a></li>
+						
+					</li>
+				
+
+				</ul>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+
+<div class="hero-slider">
+  <div class="slider-item th-fullpage hero-area" style="background-image: url(images/slider/slider-1.jpg);">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 text-center">
+          <!-- <p data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".1">PRODUCTS</p> -->
+          <h1 data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".5">Long sleeve T-shirts with best quality and different colours.<br> Typically made of cotton textile and inexpensive fabric, easy to clean.<br> There are some other modern version of the T-shirt available.</h1>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slider-item th-fullpage hero-area" style="background-image: url(images/slider/slider-2.jpg);">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 text-left">
+         
+          <h1 data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".5">Best shoes with high quality, white colour. <br>It can be worn in a formal situation, but also can be worn casually with a business suit.<br> Its lace-up shoes which are comfortable to wear and easy to wear. </h1>
+         
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slider-item th-fullpage hero-area" style="background-image: url(images/slider/slider-3.jpg);">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 text-right">
+          
+          <h1 data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".5">Best trainers with black colour and top quality. <br>High profile design, lace-up fastening and has padded tongue and cuff.<br> New balance branding and it is textured grip tread with durable rubber outsole. </h1>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+   <div class="slider-item th-fullpage hero-area" style="background-image: url(images/slider/slider-4.jpg);">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 text-right">
+          
+          <h1 data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".5">Winter jacket with quality design.<br> This is a versatile jacket with a removable quilted vest inside. <br>It is solid and has logo detailing at the back of the collar. It has buttons and zip at the front and has two slash of pockets.</h1>
+        
+        </div>
+      </div>
+    </div>
+  </div>
+
+   <div class="slider-item th-fullpage hero-area" style="background-image: url(images/slider/slider-5.jpg);">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 text-right">
+          
+          <h1 data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".5">Winter jacket with feather inside and warm. It is water-resistant matte shell fabric. <br>Fleece at the inner collar and an attached inner quilted bib provided for extra warmth and layering while the removable hood is trimmed with faux fur for a luxurious, stylish accent.<br> It is heavyweight and has a regular fit with a sit below waist. </h1>
+        </div>
+      </div>
+    </div>
+  </div>
+
+   <div class="slider-item th-fullpage hero-area" style="background-image: url(images/slider/slider-6.jpg);">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 text-right">
+          
+          <h1 data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".5">Winter coat for men. Grey colour with a wonderful length and size. <br>Throw on a clean look that is both timeless and warm. It has faux suede shearling. <br>it has a single-breasted features plush sherpa fleece spill out trimming along the collar and front placket for added visual interest. </h1>
+         
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="slider-item th-fullpage hero-area" style="background-image: url(images/slider/slider-7.jpg);">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 text-right">
+          
+          <h1 data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".5">Winter coat for men light grey colour.<br> It is a longer length of this medium-weight and has a form, Cole Haan. It has a stylish protection with imported and lined inner. It has a standard collar and the front button closure.<br> It has a welt pocket at the front and also inner pockets included.   </h1>
+         
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="slider-item th-fullpage hero-area" style="background-image: url(images/slider/slider-8.jpg);">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 text-right">
+          
+          <h1 data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".5">Expensive men watch. Top quality for men who loves to wear expensive products. <br>It is assembled in Malaysia, the weight is 155 grams and band is adjustable by adding/removing links, fold over safety clasp. <br>It has mineral crystal, screw-down crown, Uni-directional black stainless-steel bezel, it has 200-meter water resistant </h1>
+        
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="slider-item th-fullpage hero-area" style="background-image: url(images/slider/slider-9.jpg);">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 text-right">
+          
+          <h1 data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".5">Men watch with blue wrist band and high quality. <br> It has steel case 50mm diameter, It has Japanese quartz movement and battery is included. The weight is 320 grams. <br>It has flame fusion crystal, push/pull crown and stationery stainless steel bezel with blue wrist. It is suitable for diving and sports. </h1>
+         
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="products section bg-gray">
+	<div class="container">
+		<div class="row">
+			<div class="title text-center">
+				<h2>OUR PRODUCTS</h2>
+			</div>
+		</div>
+		<div class="row">
+			
+			<div class="col-md-4">
+				<div class="product-item">
+					<div class="product-thumb">
+						
+						<img class="img-responsive" src="images/shop/products/product-1.jpg" alt="product-img" />
+						
+					</div>
+					<div class="product-content">
+						<h4><a href="product-single.html">Long sleeve T-shirts</a></h4>
+						<p class="price">$200</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="product-item">
+					<div class="product-thumb">
+						<img class="img-responsive" src="images/shop/products/product-2.jpg" alt="product-img" />
+						
+					</div>
+					<div class="product-content">
+						<h4><a href="product-single.html">Shoes</a></h4>
+						<p class="price">$200</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="product-item">
+					<div class="product-thumb">
+						<img class="img-responsive" src="images/shop/products/product-3.jpg" alt="product-img" />
+						
+					</div>
+					<div class="product-content">
+						<h4><a href="product-single.html">Best trainer Shoes</a></h4>
+						<p class="price">$230</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="product-item">
+					<div class="product-thumb">
+						<img class="img-responsive" src="images/shop/products/product-4.jpg" alt="product-img" />
+						
+					</div>
+					<div class="product-content">
+						<h4><a href="product-single.html">Winter jacket</a></h4>
+						<p class="price">$200</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="product-item">
+					<div class="product-thumb">
+						<img class="img-responsive" src="images/shop/products/product-5.jpg" alt="product-img" />
+						
+					</div>
+					<div class="product-content">
+						<h4><a href="product-single.html">Winter jacket feather</a></h4>
+						<p class="price">$200</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="product-item">
+					<div class="product-thumb">
+						<img class="img-responsive" src="images/shop/products/product-6.jpg" alt="product-img" />
+						
+					</div>
+					<div class="product-content">
+						<h4><a href="product-single.html">Winter coat</a></h4>
+						<p class="price">$200</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="product-item">
+					<div class="product-thumb">
+					
+						<img class="img-responsive" src="images/shop/products/product-7.jpg" alt="product-img" />
+						
+					</div>
+					<div class="product-content">
+						<h4><a href="product-single.html">Winter coat Long</a></h4>
+						<p class="price">$200</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="product-item">
+					<div class="product-thumb">
+						<img class="img-responsive" src="images/shop/products/product-8.jpg" alt="product-img" />
+					
+					</div>
+					<div class="product-content">
+						<h4><a href="product-single.html">Men watch</a></h4>
+						<p class="price">$200</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="product-item">
+					<div class="product-thumb">
+						<img class="img-responsive" src="images/shop/products/product-9.jpg" alt="product-img" />
+						
+					</div>
+					<div class="product-content">
+						<h4><a href="product-single.html">Men watch </a></h4>
+						<p class="price">$200</p>
+					</div>
+				</div>
+			</div>
+		
+		
+
+		</div>
+	</div>
+</section>
+
+
+
+<footer class="footer section text-center">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<ul class="social-media">
+					<li>
+						<a href="">
+							<i class="tf-ion-social-facebook"></i>
+						</a>
+					</li>
+					<li>
+						<a href="">
+							<i class="tf-ion-social-instagram"></i>
+						</a>
+					</li>
+					<li>
+						<a href="">
+							<i class="tf-ion-social-twitter"></i>
+						</a>
+					</li>
+					<li>
+						<a href="">
+							<i class="tf-ion-social-pinterest"></i>
+						</a>
+					</li>
+				</ul>
+				<ul class="footer-menu text-uppercase">
+					<li>
+						CONTACT
+					</li>
+					<li>
+						Tel: 123-456-789
+					</li>
+					<li>
+						info@my-domin.com
+					</li>
+
+
+					<br>
+					<br>
+					<li>
+						Shipping & Returns
+					</li>
+					<li>
+						Store Policy
+					</li>
+					<li>
+						Payment Methods
+					</li>
+
+				</ul>
+				
+			</div>
+		</div>
+	</div>
+</footer>
+
+
+
+
+
+<img src="images/robot.png" class="open-button" onclick="openForm()" style="height: 140px;
+    width: 130px;" />
+
+    <div class="chat-popup" id="myForm" >
+      <h1 style="color: black">AI Chat-Bot&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <button type="button" class="btn cancel" onclick="closeForm()">x</button></h1>
+      <!-- <p>Hi this is AI Price negotiator bot I hope you are doing well. Please select from the below option</p>  -->
+      <div id="conversation">
+          
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           <button id="chat" style="background-color: #F0F8FF" onclick="chat()">Conversation with Bot</button>
+           <br>
+          <div class="links-unordered">
+                <a onclick="neg()" id="neg" class="toggle-button" href="#">Product Negotiation</a>
+                <ul id="ul1" style="display:none;padding-right: 18px;">
+                  <li><input type="radio" id="1" name="productn" value="shoes"><a href="#">Shoes</a></li>
+                  <li><input type="radio" id="2" name="productn" value="shirt"><a href="#">T-Shirt</a></li>
+                  <li><input type="radio" id="3" name="productn" value="jacket"><a href="#">Jacket</a></li>
+                  <li><input type="radio" id="4" name="productn" value="watch"><a href="#">Watch</a></li>
+                </ul>
+              </div>
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <div class="links-unordered">
+                  <a onclick="que()" id="que" class="toggle-button">Product Queries</a>
+                  <ul id="ul2" style="display:none;padding-right: 18px;">
+                    <li><input type="radio" id="1" class="radioBtnClass" name="productq" value="shoes"><a href="#">Shoes</a></li>
+                  <li><input type="radio" id="2" class="radioBtnClass" name="productq" value="shirt"><a href="#">T-Shirt</a></li>
+                  <li><input type="radio" id="3" class="radioBtnClass" name="productq" value="jacket"><a href="#">Jacket</a></li>
+                  <li><input type="radio" id="4" class="radioBtnClass" name="productq" value="watch"><a href="#">Watch</a></li>
+                  </ul>
+                </div>
+                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <label style="font-size: 13px; color: #c32148;" id="res" class="glow"></label>
+                <br><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <button id='yes' onclick="yes()" style="background-color: #F0F8FF; display: none;">Negotiation</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <button id='no' onclick="no()" style="background-color: #F0F8FF; display: none;">Confirm Order</button>
+                <input style="display: none;width: 300px;margin-left: 2px;margin-top: 10px;" onkeyup="success()" type="text" id="admin" class="admin" name="admin" placeholder="Please write something for admin here..">
+                <button type="submit" style="display: none;margin-left: 130px;margin-top: 5px;background-color: #F0F8FF" onclick="send()" id="button" disabled>Send</button>
+
+         
+      </div>
+      <form action="/action_page.php" class="form-container" id="dis" style="display: none;">
+        <textarea placeholder="Type message.." id="userInput" required></textarea>
+        <span style="display: inline;">
+          <input type='button' id='sendMsg' class="btn" name='sendMsg' value='Send'/><button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+        </span>
+      </form>
+    </div>
+
+
+    
+    <!-- Main jQuery -->
+    <script src="plugins/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap 3.1 -->
+    <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
+    <!-- Bootstrap Touchpin -->
+    <script src="plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js"></script>
+    
+    <!-- Video Lightbox Plugin -->
+    <script src="plugins/ekko-lightbox/dist/ekko-lightbox.min.js"></script>
+    <!-- Count Down Js -->
+    <script src="plugins/syo-timer/build/jquery.syotimer.min.js"></script>
+
+    <!-- slick Carousel -->
+    <script src="plugins/slick/slick.min.js"></script>
+    <script src="plugins/slick/slick-animation.min.js"></script>
+
+   
+
+    <!-- Main Js File -->
+    <script src="js/script.js"></script>
+    
+<script type="text/javascript">
+var pric;
+var pri;
+var countClicks = 0;
+var id;
+ $(".toggle-button").click(function() {
+  $('input[name="productq"]').prop('checked', false);
+      $('input[name="productn"]').prop('checked', false);
+
+    $(this).parent().find("ul").slideToggle(function() {
+          $("#res").hide();
+          $("#yes").hide();
+          $("#no").hide();
+          $("#admin").hide();
+
+      // Animation complete.
+    });
+  });
+
+
+
+
+function chat(){
+
+
+    $("#dis").show();
+
+  
+}
+
+
+function success() {
+   $("#button").show();
+   if(document.getElementById("admin").value==="") { 
+            document.getElementById('button').disabled = true; 
+        } else { 
+            document.getElementById('button').disabled = false;
+        }
+    }
+
+function send(){
+$("#admin").hide();
+$("#button").hide();
+$("#res").hide();
+
+var chec1 = $('input[name=productn]:checked', '#ul1').val()
+    console.log(chec1)
+add = document.getElementById("admin").value
+
+ $.ajax({
+              url:  'http://172.16.130.17:8090/bot?',
+              data : {
+                  'admin' : add,
+                  'des' : "new order",
+                  'ac' : pric,
+                  'no' : pri,
+                  'id' : id,
+                  'name' : chec1
+
+                  
+              },
+              
+              success: function (data) {
+                  console.log(data);
+                  addReply("Your Order is successfully confirmed!!")
+
+                  
+                }
+
+                                      });
+
+
+
+  $("#ul1").hide();
+  scrollingElement = (document.getElementById('conversation') || document.getElementById('conversation'))
+                       $(scrollingElement).animate({
+                          scrollTop: document.getElementById('conversation').scrollHeight
+                       }, 200);
+
+
+
+
+}
+function no(){
+  document.getElementById('admin').value = ''
+  $("#admin").show();
+  $("#yes").hide();
+  $("#no").hide();
+   $("#sen").show();
+  let input = document.getElementById("admin");
+  let ad = document.getElementById("send")
+
+   if (input.length == 0){
+       document.getElementById("no").disabled = true;
+
+   }  
+   else{
+     document.getElementById("no").disabled = false;
+   }    
+  
+  
+}
+
+
+$(document).ready(function() {
+  $("#ul1").click(function() {
+    
+    var chec1 = $('input[name=productn]:checked', '#ul1').val()
+    console.log(chec1)
+    $.ajax({
+              url:  'http://172.16.130.17:8090/name?',
+              data : {
+                  'name' : chec1,
+                  
+              },
+              
+              success: function (data) {
+                  console.log(data);
+                  price = data[2];
+                  id = data[4];
+
+                  pric = price;
+                  $("#ul1").hide();
+                  $("#res").show();
+                  $("#res").html("Do you want negotiation on "+chec1+" Price $"+price);
+                  $("#yes").show();
+                  $("#no").show();
+                  
+                }
+
+                                      });
+    
+    
+   
+  });
+
+
+
+
+})
+
+
+
+$(document).ready(function() {
+  $("#ul2").click(function() {
+
+    var chec2 = $('input[name=productq]:checked', '#ul2').val()
+    console.log(chec2)
+
+
+     $.ajax({
+              url:  'http://172.16.130.17:8090/dec?',
+              data : {
+                  'pro' : chec2,
+                  
+              },
+              
+              success: function (data) {
+                  console.log(data)
+                   $("#ul2").hide();
+                  addReply(data);
+                  scrollingElement = (document.getElementById('conversation') || document.getElementById('conversation'))
+                       $(scrollingElement).animate({
+                          scrollTop: document.getElementById('conversation').scrollHeight
+                       }, 200);
+                  
+                 
+                }
+
+                                      });
+
+
+
+  });
+})
+
+
+
+  function yes(){
+  
+    var chec1 = $('input[name=productn]:checked', '#ul1').val()
+    console.log(chec1)
+    // addReply("We are offer 10% off on "+chec1)
+    
+    countClicks++
+   
+
+   
+
+    if (countClicks == 1){
+      $("#res").show();
+      pr = -((pric/10)-pric)
+      console.log("1",pri)
+      pri = pr
+      $("#res").html("First time 10% off on  "+chec1+" so now Price is $"+pr + ".      Further negotiation?");
+      $("#yes").show();
+      $("#no").show();
+    }
+     if (countClicks == 2){
+      $("#res").show();
+      console.log("2",pri)
+      pr = -((pri/10)-pri)
+      pri = pr
+      $("#res").html("Second time 10% off on  "+chec1+" so now Price is $"+pr + ".      Further negotiation?");
+      $("#yes").show();
+      $("#no").show();
+    }
+     if (countClicks == 3){
+      $("#res").show();
+      console.log("3",pri)
+      pr = -((pri/10)-pri)
+      $("#res").html("Finally 10% off on  "+chec1+" so now Price is $"+pr + ".      Further negotiation?");
+      $("#yes").show();
+      $("#no").show();
+    }
+     if (countClicks == 4){
+      $("#res").show();
+       $("#res").html("Sorry we cannot negotiation More. Please check anohter item from list");
+      $("#yes").hide();
+      $("#no").hide();
+      
+    }
+    
+// scrollingElement = (document.getElementById('conversation') || document.getElementById('conversation'))
+//                        $(scrollingElement).animate({
+//                           scrollTop: document.getElementById('conversation').scrollHeight
+//                        }, 1200);
+}
+  function que(){
+    $("#ul1").hide();
+
+
+  }
+ function neg(){
+   $("#ul2").hide()
+ }
+
+  
+let modelPromise = {};
+
+async function answer_questions(question) {
+  console.log("question",question)
+    model = await modelPromise;
+    const answers = question
+    console.log("ane", answers)
+    if(question!=''){
+      $.ajax({
+              url:  'http://172.16.130.17:8090/chat?',
+              data : {
+                  'tex' : answers,
+                  
+              },
+              
+              success: function (data) {
+                  console.log(data)
+                  addReply(data);
+                }
+
+                                      });
+      
+    } else {
+      addReply("Please Ask Something...");
+    }
+};
+
+function openForm() {
+  document.getElementById("myForm").style.display = "block";
+  $("#ul1").hide();
+    $("#ul2").hide();
+     $("#yes").hide();
+      $("#no").hide();
+       $("#admin").hide();
+       $("#res").hide();
+       $("#send").hide();
+       $("#dis").hide();
+
+}
+
+function closeForm() {
+  document.getElementById("myForm").style.display = "none";
+   $("#ul1").hide();
+    $("#ul2").hide();
+     $("#yes").hide();
+      $("#no").hide();
+       $("#admin").hide();
+       $("#res").hide();
+       $("#send").hide();
+        $("#dis").hide();
+       
+
+}
+
+window.onload = function() {
+  modelPromise = qna.load();
+  document.getElementById("sendMsg").addEventListener("click", function(event){
+    userInput = document.getElementById("userInput");
+    addMessage(userInput.value);
+    answer_questions(userInput.value);
+    userInput.value='';
+  });
+}
+
+function addReply(msg) {
+  var sysMsg = document.createElement("p");
+  console.log("58",sysMsg)
+  sysMsg.className = "container left-chat";
+  var text = document.createTextNode(msg);
+  
+  sysMsg.appendChild(text);
+  console.log("124",sysMsg.appendChild(text) )
+  document.getElementById("conversation").appendChild(sysMsg);
+  scrollingElement = (document.getElementById('conversation') || document.getElementById('conversation'))
+                       $(scrollingElement).animate({
+                          scrollTop: document.getElementById('conversation').scrollHeight
+                       }, 200);
+}
+
+function addMessage(msg) {
+  var userMsg = document.createElement("p");
+  userMsg.className = "container right-chat";
+  var text = document.createTextNode(msg);
+  userMsg.appendChild(text);
+  console.log("123",userMsg.appendChild(text) )
+  document.getElementById("conversation").appendChild(userMsg);
+}
+</script>
+
+  </body>
+  </html>

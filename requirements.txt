@@ -1,0 +1,41 @@
+anaconda-client==1.7.2
+anaconda-navigator==2.0.3
+conda==4.10.3
+conda-build==3.21.4
+conda-verify==3.4.2
+easyocr==1.4.1
+extra-keras-datasets==1.2.0
+Flask-SQLAlchemy==2.5.1
+Flask-WTF==1.0.0
+imutils==0.5.4
+jupyter==1.0.0
+kaggle==1.5.12
+keras==2.6.0
+Keras-Preprocessing==1.1.2
+numpy==1.19.5
+opencv-python==4.5.4.58
+scikit-build==0.12.0
+scikit-image==0.18.1
+tensorboard==2.7.0
+tensorboard-data-server==0.6.1
+tensorboard-plugin-wit==1.8.0
+tensorflow==2.6.0
+tensorflow-estimator==2.7.0
+from waitress import serve
+import falcon
+from falcon_cors import CORS
+import psycopg2
+import os
+import json
+from pandas.io.json import json_normalize
+import numpy as np 
+import string
+from nltk.corpus import stopwords
+import pandas as pd 
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.feature_extraction.text import TfidfTransformer,TfidfVectorizer
+from sklearn.pipeline import Pipeline
+pgadmin 
+sublime text 3
+python3.9

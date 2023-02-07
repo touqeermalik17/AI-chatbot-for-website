@@ -1,0 +1,830 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8">
+  <title>AI Store</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+
+ <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script  src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"
+  integrity="sha256-0YPKAwZP7Mp3ALMRVB2i8GXeEndvCq3eSl/WsAl1Ryk="
+  crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css"/>
+
+
+
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" type="image/x-icon" href="images/favicon.png" />
+  
+  <!-- Themefisher Icon font -->
+  <link rel="stylesheet" href="plugins/themefisher-font/style.css">
+  <!-- bootstrap.min css -->
+  <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css">
+  
+  <!-- Animate css -->
+  <link rel="stylesheet" href="plugins/animate/animate.css">
+  <!-- Slick Carousel -->
+  <link rel="stylesheet" href="plugins/slick/slick.css">
+  <link rel="stylesheet" href="plugins/slick/slick-theme.css">
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+
+
+
+<style type="text/css">
+
+.center {
+    margin: auto;
+    width: 60%;
+    padding: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.hideform {
+    display: none;
+}
+
+
+
+
+  @use postcss-preset-env {
+  stage: 0;
+}
+
+/* helpers/align.css */
+
+.align {
+  display: grid;
+  place-items: center;
+}
+
+/* helpers/grid.css */
+
+:root {
+  --gridMaxWidth: 24em;
+  --gridWidth: 90%;
+}
+
+.grid {
+  inline-size: var(--gridWidth);
+  margin-inline: auto;
+  max-inline-size: var(--gridMaxWidth);
+}
+
+/* helpers/icon.css */
+
+.icon {
+  block-size: 1.25em;
+  display: inline-block;
+  inline-size: 1.25em;
+  line-height: 1.25em;
+  margin-right: 0.625em;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.icon--info {
+  background-color: #e5e5e5;
+  border-radius: 50%;
+}
+
+/* layout/base.css */
+
+:root {
+  --bodyBackgroundColor: #eaeaea;
+  --bodyColor: #999;
+  --bodyFontFamily: 'verdana, Arial, Helvetica';
+  --bodyFontFamilyFallback: sans-serif;
+  --bodyFontSize: 0.875rem;
+  --bodyFontWeight: 400;
+  --bodyLineHeight: 1.5;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+/*label {
+  color: blacl;
+}*/
+
+button{
+   cursor:pointer;
+}
+
+
+/* modules/anchor.css */
+
+:root {
+  --anchorColor: inherit;
+  --anchorHoverColor: #1dabb8;
+}
+
+a {
+  color: var(--anchorColor);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+a:hover {
+  color: var(--anchorHoverColor);
+}
+  
+/* modules/form.css */
+
+fieldset {
+  border: none;
+  margin: 0;
+}
+
+input {
+  appearance: none;
+  border: none;
+  font: inherit;
+  margin: 0;
+  outline: none;
+  padding: 0;
+
+}
+
+input[type='submit'] {
+  cursor: pointer;
+}
+
+.form input[type='email'],
+.form input[type='password'] {
+  inline-size: 100%;
+}
+
+/* modules/login.css */
+
+:root {
+  --loginBorderRadius: 0.25em;
+  --loginHeaderBackgroundColor: #282830;
+
+  --loginInputBorderRadius: 0.25em;
+}
+
+.login__header {
+  background-color: var(--loginHeaderBackgroundColor);
+  border-top-left-radius: var(--loginBorderRadius);
+  border-top-right-radius: var(--loginBorderRadius);
+  color: #fff;
+  padding: 1.5em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.login__title {
+  font-size: 1rem;
+  margin: 0;
+}
+
+.login__body {
+  background-color: #fff;
+  padding: 1.5em;
+  position: relative;
+}
+
+.login__body::before {
+  background-color: #fff;
+  content: '';
+  height: 0.5em;
+  left: 50%;
+  margin-left: -0.25em;
+  margin-top: -0.25em;
+  position: absolute;
+  top: 0;
+  transform: rotate(45deg);
+  width: 0.5em;
+}
+
+.login input[type='email'],
+.login input[type='password'] {
+  border: 0.0625em solid #e5e5e5;
+  padding: 1em 1.25em;
+}
+
+.login input[type='email'] {
+  border-top-left-radius: var(--loginInputBorderRadius);
+  border-top-right-radius: var(--loginInputBorderRadius);
+}
+
+.login input[type='password'] {
+  border-bottom-left-radius: var(--loginInputBorderRadius);
+  border-bottom-right-radius: var(--loginInputBorderRadius);
+  border-top: 0;
+}
+
+.login input[type='submit'] {
+  background-color: #1dabb8;
+  border-radius: var(--loginInputBorderRadius);
+  color: #fff;
+  font-weight: 700;
+  order: 1;
+  padding: 0.75em 1.25em;
+  transition: background-color 0.3s;
+}
+
+.login input[type='submit']:focus,
+.login input[type='submit']:hover {
+  background-color: #198d98;
+}
+
+.login__footer {
+  align-items: center;
+  background-color: #fff;
+  border-bottom-left-radius: var(--loginBorderRadius);
+  border-bottom-right-radius: var(--loginBorderRadius);
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 1.5em;
+  padding-left: 1.5em;
+  padding-right: 1.5em;
+}
+
+.login__footer p {
+  margin: 0;
+}
+#footer{padding:20px 0;}
+#footer h2{margin-bottom:10px; border-bottom-color:#98989A;}
+#footer p, #footer ul, #footer a{margin:0; padding:0; font-weight:normal; list-style:none; line-height:normal;}
+#footer .footbox{display:block; float:right; width:190px; margin:0 0 0 15px; padding:0;}
+#footer li{margin-bottom:3px;}
+#footer .last{margin:0;}
+#newsletter{display:block; float:left; width:300px;}
+
+
+
+
+
+</style>
+
+
+
+
+
+
+</head>
+
+<body id="body">
+
+<!-- Start Top Header Bar -->
+<section class="top-header">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-4 col-xs-12 col-sm-4">
+				<div class="contact-number">
+					<img src="images/brain1.png" style="height: 70px;">
+					
+				</div>
+			</div>
+			<div class="col-md-4 col-xs-12 col-sm-4">
+				<!-- Site Logo -->
+				<div class="logo text-center">
+					<a href="index.html">
+						
+										<h3>AI PRICE NEGOTIATOR</h3>
+							
+					</a>
+				</div>
+			</div>
+			<div class="col-md-4 col-xs-12 col-sm-4">
+				<!-- Cart -->
+				<ul class="top-menu text-right list-inline">
+					<li class="dropdown cart-nav dropdown-slide">
+						<li><a href="login.html">Logout</a></li>
+						
+					</li>
+				
+
+				</ul>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+<section class="page-header">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="content">
+					<h1 class="page-name">Admin Dashboard</h1>
+					<ol class="breadcrumb">
+						<li><a href="index.html">Home</a></li>
+						
+					</ol>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+<section class="user-dashboard page-wrapper">
+	<div class="container">
+		  <table id="example" class="display" cellspacing="0" width="100%" style="color: black;">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Product ID</th>
+          <th>Product Name</th>
+          <th>Description</th>
+          <th>Actual Price</th>
+          <th>Negotiated Price</th>
+          <th>Recommendation To Admin</th>
+        
+          
+          
+        </tr>
+      </thead>
+    </table>
+						
+	</div>
+</section>
+
+
+<button style="padding: 10px;width: 106px;background-color: #919863;margin-left: 555px; border: none;" id="loadData" onclick="loadData()"> 
+  <b style="font-weight: 1000;color: white">Refresh</b></button>
+<button style="padding: 10px;width: 106px;background-color: #919863;margin-left: 20px; border: none;" id="show" onclick="aler()"> 
+  <b style="font-weight: 1000;color: white">Edit Record</b></button>
+
+
+
+<div class="center hideform" style="background-color: #919863">
+    <button id="close" style="float: right;border: none;">X</button>
+    <form style="text-align: center;" action="">
+        <b> <span style="color: black;">Please Fetch Data Through ID Only</b></span>
+         <br><br>
+         <br>
+
+        ID:<input style="margin-right: -45px;width: 185px; height: 22px" type="text" id="id"  >
+        <br><br>
+        Product ID:<input style="margin-right: 13px; width: 185px; height: 22px" type="text" id="proid"  disabled>
+        <br><br>
+        Product Name:<input style="width: 164px;margin-right: 20px; height: 22px" type="text" id="proname" disabled>
+        <br><br>
+        <span>Description:</span><textarea style="margin-right: 18px; width: 185px; height: 38px" type="text" id="prodec" disabled></textarea>
+        <br><br>
+        Actual Price:<input style="margin-right: 17px;width: 184px; height: 22px" type="text"  id="proac" disabled>
+        <br><br>
+        Negotiated Price:<input style="margin-right: 19px;width: 152px; height: 22px" type="text" id="prono" disabled>
+        <br><br>
+        Rec To Admin:<textarea style="margin-right: 15px;width: 174px; height: 38px" type="text" id="admin" disabled></textarea>
+        <br><br>
+
+        <input style="width: 76px" id="save"  onclick="savedata()"  value="Save Data" disabled>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+        <input style="width: 76px"  id="fet" onclick="fetch()" value="Fetch Data" disabled>
+    </form>
+</div>
+
+<br><br><br>
+
+
+
+<footer class="footer section text-center">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<ul class="social-media">
+					<li>
+						<a href="">
+							<i class="tf-ion-social-facebook"></i>
+						</a>
+					</li>
+					<li>
+						<a href="">
+							<i class="tf-ion-social-instagram"></i>
+						</a>
+					</li>
+					<li>
+						<a href="">
+							<i class="tf-ion-social-twitter"></i>
+						</a>
+					</li>
+					<li>
+						<a href="">
+							<i class="tf-ion-social-pinterest"></i>
+						</a>
+					</li>
+				</ul>
+				<ul class="footer-menu text-uppercase">
+					<li>
+						CONTACT
+					</li>
+					<li>
+						Tel: 123-456-789
+					</li>
+					<li>
+						info@my-domin.com
+					</li>
+
+
+					<br>
+					<br>
+					<li>
+						Shipping & Returns
+					</li>
+					<li>
+						Store Policy
+					</li>
+					<li>
+						Payment Methods
+					</li>
+
+				</ul>
+				
+			</div>
+		</div>
+	</div>
+</footer>
+   
+    <!-- Main jQuery -->
+    <script src="plugins/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap 3.1 -->
+    <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
+    <!-- Bootstrap Touchpin -->
+    <script src="plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js"></script>
+
+    <!-- Video Lightbox Plugin -->
+    <script src="plugins/ekko-lightbox/dist/ekko-lightbox.min.js"></script>
+    <!-- Count Down Js -->
+    <script src="plugins/syo-timer/build/jquery.syotimer.min.js"></script>
+
+    <!-- slick Carousel -->
+    <script src="plugins/slick/slick.min.js"></script>
+    <script src="plugins/slick/slick-animation.min.js"></script>
+
+
+    <!-- Main Js File -->
+    <script src="js/script.js"></script>
+    
+<script type="text/javascript">
+	
+function logOut() {
+       
+    }
+
+   
+
+
+
+
+
+let button = document.getElementById("fet")
+let input = document.getElementById("id")
+let proid = document.getElementById("proid")
+let n = document.getElementById("proname")
+let d = document.getElementById("prodec")
+let pa = document.getElementById("proac")
+let pn = document.getElementById("prono")
+let ad = document.getElementById("admin")
+input.addEventListener("input", function(e) {
+   if (input.value.length == 0) {
+      button.disabled = true;
+      n.disabled = true;
+      d.disabled = true;
+      pa.disabled = true;
+      pn.disabled = true;
+      ad.disabled = true;
+      proid.disabled = true;
+   } else {
+      button.disabled = false;
+       n.disabled = false;
+      d.disabled = false;
+      pa.disabled = false;
+      pn.disabled = false;
+      ad.disabled = false;
+      proid.disabled = false;
+   }
+})
+
+
+
+
+
+
+function savedata(){
+  idd = $('#id').val();
+  id = $('#proid').val();
+  name = $('#proname').val();
+  dec = $('#prodec').val();
+  no = $('#prono').val();
+  ac = $('#proac').val();
+  admin = $('#admin').val();
+
+  $.ajax({
+              url:  'http://172.16.130.17:8090/update?',
+              data : {
+                  'id' : id,
+                  'name' : name,
+                  'dec' : dec,
+                  'no' : no,
+                  'ac' : ac,
+                  'admin' : admin,
+                  'idd' : idd,
+              },
+              
+              success: function (data) {
+                  console.log(data)
+                   $('.center').hide();
+                   $('#loadData').show();
+    $('#show').show();
+                 
+                }
+
+                                      });
+
+}
+
+
+
+
+
+
+
+
+  function fetch(){
+    
+    id = $('#id').val();
+    $.ajax({
+              url:  'http://172.16.130.17:8090/id?',
+              data : {
+                  'id' : id,
+              },
+              
+              success: function (data) {
+                  console.log(data)
+                  if (data === 'Not Found'){
+                    console.log("Not Found")
+                  }
+                  else{
+                  document.getElementById('proid').value =    data[4];
+                  document.getElementById('proname').value =    data[5];
+                  document.getElementById('prodec').value =    data[1];
+                  document.getElementById('prono').value =    data[3];
+                  document.getElementById('proac').value =    data[2];
+                  document.getElementById('admin').value =    data[0];
+                  document.getElementById("save").disabled = false;
+                }
+                 
+                }
+
+                                      }); 
+  }
+
+
+  $('#show').on('click', function () {
+    $('.center').show();
+    $('#loadData').hide();
+    $(this).hide();
+})
+
+$('#close').on('click', function () {
+    $('.center').hide();
+    $('#loadData').show();
+    $('#show').show();
+})
+
+
+  
+function aler(){
+  scrollingElement = (document.scrollingElement || document.body)
+   $(scrollingElement).animate({
+      scrollTop: document.body.scrollHeight
+   }, 1200);
+  document.getElementById('proid').value =   '';
+  document.getElementById('proname').value = '';
+  document.getElementById('prodec').value =   '';
+  document.getElementById('prono').value =    '';
+  document.getElementById('proac').value =   '';
+  document.getElementById('admin').value =    '';
+   document.getElementById('id').value =   '';
+}
+
+
+
+
+  function back(){
+    console.log("here")
+    window.location.href = ""
+  }
+
+
+
+  function loadData(){
+
+$(function() {
+  $("#example").DataTable();
+
+  // Premade test data, you can also use your own
+  var testDataUrl = "http://172.16.130.17:8090/tabledata"
+ 
+ 
+
+
+ 
+    $.ajax({
+      type: 'GET',
+      url: testDataUrl,
+      contentType: "text/plain",
+      dataType: 'json',
+      success: function (data) {
+        
+        data = data[0][0]
+        myJsonData = data["data"];
+        
+        // data = data
+        // myJsonData = data;
+        // console.log("data",myJsonData)
+        populateDataTable(myJsonData);
+      },
+      error: function (e) {
+        console.log("There was an error with your request...");
+        console.log("error: " + JSON.stringify(e));
+      }
+    });
+  
+
+  // populate the data table with JSON data
+  function populateDataTable(data) {
+    console.log("populating data table...");
+    // clear the table before populating it with more data
+    $("#example").DataTable().clear();
+
+    var length = Object.keys(data).length;
+    
+    
+   
+    for(var i = 0; i <= length+1; i++) {
+      var customer = data[i];
+      // console.log("1", customer)
+     
+     
+
+      // You could also use an ajax property on the data table initialization
+
+      $('#example').dataTable().fnAddData( [
+         // customer.id,
+      customer.id,
+      customer.product_id,
+      customer.product_name,
+      customer.description,
+      customer.actual_price,
+      customer.negotiated_price,
+      customer.recommendation_to_admin,
+      
+
+      ]);
+    
+    // else{
+    //    $('#example').dataTable().fnAddData( [
+    //      customer.id,
+    //     customer.username,
+    //     customer.plugin,
+    //     customer.granted_at,
+    //     customer.granted_by,
+    //     customer.granted_till,
+    //     customer.permitted_time,
+        
+        
+       
+   
+
+    //   ]);
+    // }
+    }
+    
+
+  }
+});
+
+
+
+  }
+
+ $(document).ready(function () {
+
+
+$(function() {
+  $("#example").dataTable();
+
+  // Premade test data, you can also use your own
+  var testDataUrl = "http://172.16.130.17:8090/tabledata"
+ 
+ 
+
+
+ 
+    $.ajax({
+      type: 'GET',
+      url: testDataUrl,
+      contentType: "text/plain",
+      dataType: 'json',
+      success: function (data) {
+        
+        data = data[0][0]
+        myJsonData = data["data"];
+        
+        // data = data
+        // myJsonData = data;
+        // console.log("data",myJsonData)
+        populateDataTable(myJsonData);
+      },
+      error: function (e) {
+        console.log("There was an error with your request...");
+        console.log("error: " + JSON.stringify(e));
+      }
+    });
+  
+
+  // populate the data table with JSON data
+  function populateDataTable(data) {
+    console.log("populating data table...");
+    // clear the table before populating it with more data
+    $("#example").DataTable().clear();
+
+    var length = Object.keys(data).length;
+    
+    
+   
+    for(var i = 0; i <= length+1; i++) {
+      var customer = data[i];
+      // console.log("1", customer)
+     
+     
+
+      // You could also use an ajax property on the data table initialization
+
+      $('#example').dataTable().fnAddData( [
+      customer.id,
+      customer.product_id,
+      customer.product_name,
+      customer.description,
+      customer.actual_price,
+      customer.negotiated_price,
+      customer.recommendation_to_admin,
+      
+
+      ]);
+    
+    // else{
+    //    $('#example').dataTable().fnAddData( [
+    //      customer.id,
+    //     customer.username,
+    //     customer.plugin,
+    //     customer.granted_at,
+    //     customer.granted_by,
+    //     customer.granted_till,
+    //     customer.permitted_time,
+        
+        
+       
+   
+
+    //   ]);
+    // }
+    }
+    
+
+  }
+});
+
+
+});
+
+
+
+
+
+
+
+
+
+</script>
+
+
+
+
+<script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css"/>
+
+  </body>
+  </html>
